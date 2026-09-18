@@ -3,8 +3,8 @@ export interface WorkTask {
   berth_plan_id: number;
   yard_slot_id: number;
   task_type: string;
-  team_id: number;
+  team_id: number | null;
   status: string;
   planned_start: string;
-  finished_at: string;
+  finished_at: string | null;
 }

@@ -52,11 +52,30 @@ backend/src/routes, controllers, services, models, repositories, middlewares, co
 - 数据库使用命名卷，避免绑定中文路径。
 - 常见问题：端口占用时修改 `.env` 中端口后重启；需要重置数据时执行 `docker compose down -v`。
 
+## 靠泊计划审批事务（核心业务规则）
+
+`POST /api/berth-plan/:id/approve`（仅 `DISPATCHER` 角色，前端「泊位计划」详情页触发）一次完成三项受控变更：
+
+1. 计划状态 `DRAFT/CONFLICT → APPROVED`（记录审批调度员与流转记录）；
+2. 占用计划指定的堆场箱位：`slot_status=OCCUPIED`、`held_by_plan_id=计划ID`；
+3. 按计划 `task_type` 为每个箱位开出一份 `PENDING` 装卸任务（WorkTask）。
+
+规则与并发保证：
+
+- **一次保存**：三项变更在同一事务（后端 `repositories/db.ts` 的写互斥队列 + 快照原子提交；生产 MySQL 对应单事务 + `SELECT ... FOR UPDATE`）。任一前置校验失败即整体丢弃快照，状态、箱位、任务三项保持原样。
+- **一箱位一份计划**：箱位在被释放（`held_by_plan_id` 回到 `NULL`）前只能被一份已审批计划持有。
+- **整次拒绝的场景**：泊位时段与其他已审批/靠泊中计划重叠（半开区间 `[到,离)`，边界相接允许）、指定箱位已占用或锁定、调度权限不足（路由级 RBAC，403）、计划状态不可审批。
+- **并发只一份成功**：`berth_plan.version` 乐观锁 CAS + 写互斥；两个调度员同时审批同一份/冲突计划，只有一个成功，另一个返回 `APPROVE_CONCURRENT_CONFLICT`。
+- **失败原因可见**：拒绝时把 `code` 与具体原因写入计划 `reject_reason` 和 `berth_plan_transition`（不改三项受控资源）；详情页展示「最新流转结果」「失败原因」「占用箱位」「装卸任务」与完整流转历史。
+
+涉及文件：`services/approvePlanService.ts`、`services/berthConflictService.ts`、`services/yardAllocationService.ts`、`repositories/db.ts`、`repositories/{BerthPlan,YardSlot,WorkTask,AuditLog}Repository.ts`、`controllers/BerthPlanController.ts`、`routes/BerthPlanRoutes.ts`、`middlewares/{auth,rbac}Middleware.ts`、`constants/{errorCodes,errorMessages,logTemplates,UserRole,WorkTaskStatus}.ts`、`constructors/BerthPlanDtoFactory.ts`，前端 `pages/BerthsPage.ts`、`stores/BerthPlanStore.ts`、`api/{client,BerthPlan}.ts`、`components/common/{StatusBadge,ConflictBadge}.ts`。
+
 ## 枚举/常量出现位置清单
 
-- BerthPlanStatus: constants/BerthPlanStatus、types/BerthPlanStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
-- YardSlotStatus: constants/YardSlotStatus、types/YardSlotStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
-- WorkTaskType: constants/WorkTaskType、types/WorkTaskType、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- BerthPlanStatus: `backend/src/constants/BerthPlanStatus.ts`、types/models/BerthPlan、constructors/BerthPlanDtoFactory、logTemplates（审批模板）、errorMessages、berthConflictService、approvePlanService、前端 `constants/BerthPlanStatus.ts`、types/BerthPlan、constructors、StatusBadge、BerthsPage 筛选/展示。
+- YardSlotStatus: 后端 constants/YardSlotStatus、models/YardSlot、seed、yardAllocationService、YardSlotDtoFactory、logTemplates、errorMessages、前端 constants/YardSlotStatus、types/YardSlot、YardGrid/StatusBadge、堆场页。
+- WorkTaskType: 后端 constants/WorkTaskType、models/WorkTask、seed、approvePlanService、WorkTaskDtoFactory、前端 constants/WorkTaskType、types/WorkTask、TasksPage、TeamTag。
+- 审批相关错误码（前后端各一份）：`BERTH_PLAN_NOT_FOUND / BERTH_PLAN_NOT_APPROVABLE / BERTH_TIME_OVERLAP / YARD_SLOT_NOT_FOUND / YARD_SLOT_OCCUPIED / YARD_SLOT_LOCKED / APPROVE_CONCURRENT_CONFLICT / RBAC_DENIED`，集中在 `constants/errorCodes.ts` 与 `constants/errorMessages.ts`，被 service、controller、store、详情页共同引用。
 
 ## 为什么会牵一发动全身
 

@@ -7,4 +7,6 @@ export interface YardSlot {
   container_no: string;
   slot_status: string;
   cargo_type: string;
+  held_by_plan_id: number | null;
+  version: number;
 }
