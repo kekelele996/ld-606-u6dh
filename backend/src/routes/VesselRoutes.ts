@@ -1,0 +1,1 @@
+import { Router } from "express"; import { vesselController } from "../controllers/VesselController"; const router = Router(); router.get("/", vesselController.list); router.post("/", vesselController.create); export default router;

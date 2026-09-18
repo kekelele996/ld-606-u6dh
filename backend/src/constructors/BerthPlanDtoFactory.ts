@@ -1,0 +1,1 @@
+export const createBerthPlanDto = (overrides = {}) => ({ id: 1, vessel_id: 1, berth_id: 1, planned_arrival: "planned arrival 1", planned_departure: "planned departure 1", priority: "priority 1", status: "CONFLICT", dispatcher_id: 1, ...overrides });

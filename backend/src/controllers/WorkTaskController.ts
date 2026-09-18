@@ -1,0 +1,1 @@
+import type { Request, Response } from "express"; import { workTaskService } from "../services/WorkTaskService"; export const workTaskController = { list: (_req: Request, res: Response) => res.json(workTaskService.list()), create: (req: Request, res: Response) => res.status(201).json(workTaskService.create(req.body)) };

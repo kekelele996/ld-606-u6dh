@@ -1,0 +1,1 @@
+export const createYardSlotDto = (overrides = {}) => ({ id: 1, yard_area: "yard area 1", row_no: "row no 1", bay_no: "bay no 1", tier_no: "tier no 1", container_no: "container no 1", slot_status: "CONFLICT", cargo_type: "CONFLICT", ...overrides });

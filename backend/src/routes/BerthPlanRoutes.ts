@@ -1,0 +1,1 @@
+import { Router } from "express"; import { berthPlanController } from "../controllers/BerthPlanController"; const router = Router(); router.get("/", berthPlanController.list); router.post("/", berthPlanController.create); export default router;

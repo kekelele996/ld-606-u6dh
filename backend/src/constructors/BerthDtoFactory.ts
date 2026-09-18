@@ -1,0 +1,1 @@
+export const createBerthDto = (overrides = {}) => ({ id: 1, berth_code: "berth code 1", length_m: "length m 1", water_depth_m: "water depth m 1", berth_type: "CONFLICT", current_status: "CONFLICT", safety_note: "safety note 1", ...overrides });

@@ -1,0 +1,1 @@
+export const createWorkTaskDto = (overrides = {}) => ({ id: 1, berth_plan_id: 1, yard_slot_id: 1, task_type: "CONFLICT", team_id: 1, status: "CONFLICT", planned_start: "planned start 1", finished_at: "2026-06-11T09:00:00Z", ...overrides });

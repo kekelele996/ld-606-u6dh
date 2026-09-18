@@ -1,0 +1,1 @@
+import { Router } from "express"; import { yardSlotController } from "../controllers/YardSlotController"; const router = Router(); router.get("/", yardSlotController.list); router.post("/", yardSlotController.create); export default router;

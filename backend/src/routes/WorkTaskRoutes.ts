@@ -1,0 +1,1 @@
+import { Router } from "express"; import { workTaskController } from "../controllers/WorkTaskController"; const router = Router(); router.get("/", workTaskController.list); router.post("/", workTaskController.create); export default router;

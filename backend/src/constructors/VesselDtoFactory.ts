@@ -1,0 +1,1 @@
+export const createVesselDto = (overrides = {}) => ({ id: 1, vessel_name: "vessel name 1", imo_no: "imo no 1", carrier: "carrier 1", length_m: "length m 1", draft_m: "draft m 1", eta: "eta 1", etd: "etd 1", status: "CONFLICT", ...overrides });

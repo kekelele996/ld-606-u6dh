@@ -1,0 +1,1 @@
+import type { Request, Response } from "express"; import { vesselService } from "../services/VesselService"; export const vesselController = { list: (_req: Request, res: Response) => res.json(vesselService.list()), create: (req: Request, res: Response) => res.status(201).json(vesselService.create(req.body)) };

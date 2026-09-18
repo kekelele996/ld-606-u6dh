@@ -1,0 +1,1 @@
+import { berthPlanRepository } from "../repositories/BerthPlanRepository"; export const berthPlanService = { list: () => berthPlanRepository.findAll(), create: (row: unknown) => berthPlanRepository.save(row) };
