@@ -1,1 +1,7 @@
-import { seed } from "../seed"; export const vesselRepository = { findAll: () => seed.vessel, save: (row: unknown) => row };
+import { db } from "../config/inMemoryDb";
+import type { Vessel } from "../models/Vessel";
+
+export const vesselRepository = {
+  findAll: (): Vessel[] => db.getTables().vessel,
+  save: (row: unknown): unknown => row
+};

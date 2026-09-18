@@ -2,161 +2,173 @@ export const mockData = {
   "vessel": [
     {
       "id": 1,
-      "vessel_name": "vessel name 1",
-      "imo_no": "imo no 1",
-      "carrier": "carrier 1",
-      "length_m": "length m 1",
-      "draft_m": "draft m 1",
-      "eta": "eta 1",
-      "etd": "etd 1",
-      "status": "CONFLICT"
+      "vessel_name": "远东先锋",
+      "imo_no": "IMO-9472816",
+      "carrier": "中远海运",
+      "length_m": "294",
+      "draft_m": "11.2",
+      "eta": "2026-09-19T02:00:00Z",
+      "etd": "2026-09-19T18:00:00Z",
+      "status": "DRAFT"
     },
     {
       "id": 2,
-      "vessel_name": "vessel name 2",
-      "imo_no": "imo no 2",
-      "carrier": "carrier 2",
-      "length_m": "length m 2",
-      "draft_m": "draft m 2",
-      "eta": "eta 2",
-      "etd": "etd 2",
-      "status": "APPROVED"
+      "vessel_name": "南方明珠",
+      "imo_no": "IMO-9285623",
+      "carrier": "招商轮船",
+      "length_m": "240",
+      "draft_m": "9.6",
+      "eta": "2026-09-17T06:00:00Z",
+      "etd": "2026-09-17T20:00:00Z",
+      "status": "BERTHING"
     },
     {
       "id": 3,
-      "vessel_name": "vessel name 3",
-      "imo_no": "imo no 3",
-      "carrier": "carrier 3",
-      "length_m": "length m 3",
-      "draft_m": "draft m 3",
-      "eta": "eta 3",
-      "etd": "etd 3",
+      "vessel_name": "海风 8 号",
+      "imo_no": "IMO-9901028",
+      "carrier": "中外运",
+      "length_m": "185",
+      "draft_m": "7.4",
+      "eta": "2026-09-20T01:30:00Z",
+      "etd": "2026-09-20T14:00:00Z",
       "status": "DRAFT"
     }
   ],
   "berth": [
     {
       "id": 1,
-      "berth_code": "berth code 1",
-      "length_m": "length m 1",
-      "water_depth_m": "water depth m 1",
-      "berth_type": "CONFLICT",
-      "current_status": "CONFLICT",
-      "safety_note": "safety note 1"
+      "berth_code": "A-01",
+      "length_m": "320",
+      "water_depth_m": "14.5",
+      "berth_type": "CONTAINER",
+      "current_status": "OCCUPIED",
+      "safety_note": "注意北侧系缆桩磨损"
     },
     {
       "id": 2,
-      "berth_code": "berth code 2",
-      "length_m": "length m 2",
-      "water_depth_m": "water depth m 2",
-      "berth_type": "APPROVED",
-      "current_status": "APPROVED",
-      "safety_note": "safety note 2"
+      "berth_code": "A-02",
+      "length_m": "280",
+      "water_depth_m": "12.0",
+      "berth_type": "CONTAINER",
+      "current_status": "IDLE",
+      "safety_note": ""
     },
     {
       "id": 3,
-      "berth_code": "berth code 3",
-      "length_m": "length m 3",
-      "water_depth_m": "water depth m 3",
-      "berth_type": "BERTHING",
-      "current_status": "DRAFT",
-      "safety_note": "safety note 3"
+      "berth_code": "B-01",
+      "length_m": "220",
+      "water_depth_m": "10.5",
+      "berth_type": "BULK",
+      "current_status": "IDLE",
+      "safety_note": "夜间作业需加派照明"
     }
   ],
   "berthPlan": [
     {
       "id": 1,
       "vessel_id": 1,
-      "berth_id": 1,
-      "planned_arrival": "planned arrival 1",
-      "planned_departure": "planned departure 1",
-      "priority": "priority 1",
-      "status": "CONFLICT",
+      "berth_id": 2,
+      "planned_arrival": "2026-09-19T03:00:00Z",
+      "planned_departure": "2026-09-19T16:00:00Z",
+      "priority": "HIGH",
+      "status": "DRAFT",
       "dispatcher_id": 1
     },
     {
       "id": 2,
       "vessel_id": 2,
-      "berth_id": 2,
-      "planned_arrival": "planned arrival 2",
-      "planned_departure": "planned departure 2",
-      "priority": "priority 2",
+      "berth_id": 1,
+      "planned_arrival": "2026-09-17T07:00:00Z",
+      "planned_departure": "2026-09-17T19:00:00Z",
+      "priority": "NORMAL",
       "status": "APPROVED",
       "dispatcher_id": 2
     },
     {
       "id": 3,
       "vessel_id": 3,
-      "berth_id": 3,
-      "planned_arrival": "planned arrival 3",
-      "planned_departure": "planned departure 3",
-      "priority": "priority 3",
+      "berth_id": 2,
+      "planned_arrival": "2026-09-20T02:00:00Z",
+      "planned_departure": "2026-09-20T13:00:00Z",
+      "priority": "NORMAL",
       "status": "DRAFT",
-      "dispatcher_id": 3
+      "dispatcher_id": 1
     }
   ],
   "yardSlot": [
     {
       "id": 1,
-      "yard_area": "yard area 1",
-      "row_no": "row no 1",
-      "bay_no": "bay no 1",
-      "tier_no": "tier no 1",
-      "container_no": "container no 1",
-      "slot_status": "CONFLICT",
-      "cargo_type": "CONFLICT"
+      "yard_area": "A 区",
+      "row_no": "03",
+      "bay_no": "12",
+      "tier_no": "02",
+      "container_no": "COSU-2917334",
+      "slot_status": "OCCUPIED",
+      "cargo_type": "GENERAL"
     },
     {
       "id": 2,
-      "yard_area": "yard area 2",
-      "row_no": "row no 2",
-      "bay_no": "bay no 2",
-      "tier_no": "tier no 2",
-      "container_no": "container no 2",
-      "slot_status": "APPROVED",
-      "cargo_type": "APPROVED"
+      "yard_area": "A 区",
+      "row_no": "03",
+      "bay_no": "13",
+      "tier_no": "01",
+      "container_no": "",
+      "slot_status": "EMPTY",
+      "cargo_type": "REEFER"
     },
     {
       "id": 3,
-      "yard_area": "yard area 3",
-      "row_no": "row no 3",
-      "bay_no": "bay no 3",
-      "tier_no": "tier no 3",
-      "container_no": "container no 3",
-      "slot_status": "DRAFT",
-      "cargo_type": "BERTHING"
+      "yard_area": "B 区",
+      "row_no": "05",
+      "bay_no": "08",
+      "tier_no": "01",
+      "container_no": "",
+      "slot_status": "EMPTY",
+      "cargo_type": "GENERAL"
+    },
+    {
+      "id": 4,
+      "yard_area": "B 区",
+      "row_no": "05",
+      "bay_no": "09",
+      "tier_no": "01",
+      "container_no": "",
+      "slot_status": "EMPTY",
+      "cargo_type": "HAZMAT"
+    },
+    {
+      "id": 5,
+      "yard_area": "C 区",
+      "row_no": "01",
+      "bay_no": "04",
+      "tier_no": "03",
+      "container_no": "MSKU-8840221",
+      "slot_status": "LOCKED",
+      "cargo_type": "HAZMAT"
     }
   ],
   "workTask": [
     {
       "id": 1,
-      "berth_plan_id": 1,
-      "yard_slot_id": 1,
-      "task_type": "CONFLICT",
-      "team_id": 1,
-      "status": "CONFLICT",
-      "planned_start": "planned start 1",
-      "finished_at": "2026-06-11T09:00:00Z"
-    },
-    {
-      "id": 2,
       "berth_plan_id": 2,
-      "yard_slot_id": 2,
-      "task_type": "APPROVED",
-      "team_id": 2,
-      "status": "APPROVED",
-      "planned_start": "planned start 2",
-      "finished_at": "2026-06-12T09:00:00Z"
-    },
+      "yard_slot_id": 1,
+      "task_type": "DISCHARGE",
+      "team_id": 101,
+      "status": "IN_PROGRESS",
+      "planned_start": "2026-09-17T08:00:00Z",
+      "finished_at": ""
+    }
+  ],
+  "approvalFlow": [
     {
-      "id": 3,
-      "berth_plan_id": 3,
-      "yard_slot_id": 3,
-      "task_type": "BERTHING",
-      "team_id": 3,
-      "status": "DRAFT",
-      "planned_start": "planned start 3",
-      "finished_at": "2026-06-13T09:00:00Z"
+      "id": 1,
+      "berth_plan_id": 2,
+      "result": "APPROVED",
+      "reason": "",
+      "dispatcher_id": 2,
+      "occupied_slot_ids": "1",
+      "created_task_ids": "1",
+      "created_at": "2026-09-16T09:12:00Z"
     }
   ]
 } as const;

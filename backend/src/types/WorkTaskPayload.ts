@@ -1,1 +1,3 @@
-export type WorkTaskPayload = Record<string, unknown>;
+import type { WorkTask } from "../models/WorkTask";
+
+export type WorkTaskPayload = Partial<WorkTask>;
